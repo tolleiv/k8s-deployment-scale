@@ -16,20 +16,27 @@ import (
 	"k8s.io/client-go/pkg/apis/extensions/v1beta1"
 	"io/ioutil"
 	"strconv"
+	"k8s.io/client-go/rest"
 )
 
 var (
 	kubeconfig = flag.String("kubeconfig", "./config", "absolute path to the kubeconfig file")
 	address = flag.String("address", ":8000", "Address and port to bind the HTTP server to")
+
 )
 
 func main() {
 	flag.Parse()
-	// uses the current context in kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
-	if err != nil {
-		panic(err.Error())
+
+	inCluster := os.Getenv("INCLUSTER")
+
+	var config rest.Config
+	if inCluster == "true" {
+		config, _ = rest.InClusterConfig()
+	} else {
+		config, _ = clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	}
+
 	// creates the clientset
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
