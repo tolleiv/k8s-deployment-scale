@@ -32,9 +32,20 @@ func main() {
 
 	var config *rest.Config
 	if inCluster == "true" {
-		config, _ = rest.InClusterConfig()
+		log.Println("Using in-cluster configuration")
+		icConfig, err := rest.InClusterConfig()
+		if err != nil {
+			panic(err.Error())
+		}
+		config = icConfig
+
 	} else {
-		config, _ = clientcmd.BuildConfigFromFlags("", *kubeconfig)
+		log.Println("Using out-of-cluster configuration")
+		oocConfig, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+		if err != nil {
+			panic(err.Error())
+		}
+		config = oocConfig
 	}
 
 	// creates the clientset
