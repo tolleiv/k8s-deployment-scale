@@ -30,7 +30,7 @@ func main() {
 
 	inCluster := os.Getenv("INCLUSTER")
 
-	var config rest.Config
+	var config *rest.Config
 	if inCluster == "true" {
 		config, _ = rest.InClusterConfig()
 	} else {
