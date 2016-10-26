@@ -55,7 +55,7 @@ func main() {
 	}
 
 	r := mux.NewRouter()
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "OK")
 	})
 
