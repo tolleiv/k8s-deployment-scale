@@ -54,6 +54,13 @@ func main() {
 		panic(err.Error())
 	}
 
+
+	_, err = clientset.Deployments("default").List(api.ListOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+	log.Println("Config found, starting HTTP server")
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "OK")
