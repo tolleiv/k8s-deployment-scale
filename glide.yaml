@@ -1,4 +1,4 @@
-package: github.com/tolleiv/k8s-deployment-restart
+package: github.com/tolleiv/k8s-deployment-scale
 import:
 - package: k8s.io/client-go
   subpackages:
