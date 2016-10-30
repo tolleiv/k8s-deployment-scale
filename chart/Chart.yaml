@@ -1,0 +1,10 @@
+name: k8s-deployment-scale
+home: github.com/tolleiv/k8s-deployment-scale
+source:
+  - tolleiv/k8s-deployment-scale
+version: 0.1.0
+description: API to restart pods within a deployment without kubectl or dirct API access
+maintainers:
+  - Tolleiv Nietsch <info@tolleiv.de>
+details:
+  Small experiment to use the go-client library for Kubernetes

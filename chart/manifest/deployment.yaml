@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-deployment-scale
+  labels:
+    provider: k8s-deployment-scale
+    heritage: helm
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        provider: k8s-deployment-scale
+    spec:
+      containers:
+      - name: k8s-deployment-scale
+        image: tolleiv/k8s-deployment-scale
+        ports:
+        - containerPort: 8000
