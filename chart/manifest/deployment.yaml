@@ -17,3 +17,6 @@ spec:
         image: tolleiv/k8s-deployment-scale
         ports:
         - containerPort: 8000
+        env:
+        - name: INCLUSTER
+          value: "true"

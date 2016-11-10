@@ -5,24 +5,24 @@ import (
 	"fmt"
 	"time"
 
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
-	api "k8s.io/client-go/pkg/api/v1"
-	"github.com/gorilla/mux"
-	"net/http"
-	"log"
-	"os"
-	"github.com/gorilla/handlers"
-	"k8s.io/client-go/pkg/apis/extensions/v1beta1"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
 	"strconv"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"k8s.io/client-go/kubernetes"
+	api "k8s.io/client-go/pkg/api/v1"
+	"k8s.io/client-go/pkg/apis/extensions/v1beta1"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 var (
 	kubeconfig = flag.String("kubeconfig", "./config", "absolute path to the kubeconfig file")
-	address = flag.String("address", ":8000", "Address and port to bind the HTTP server to")
-
+	address    = flag.String("address", ":8000", "Address and port to bind the HTTP server to")
 )
 
 func main() {
@@ -53,7 +53,6 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-
 
 	_, err = clientset.Deployments("default").List(api.ListOptions{})
 	if err != nil {
@@ -115,13 +114,12 @@ func main() {
 
 		fmt.Fprintf(w, "Scaled to %v\n", newScale.Spec.Replicas)
 
-
 	}).Methods("PUT")
 
 	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
 	srv := &http.Server{
-		Handler:      loggedRouter,
-		Addr:         *address,
+		Handler: loggedRouter,
+		Addr:    *address,
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
